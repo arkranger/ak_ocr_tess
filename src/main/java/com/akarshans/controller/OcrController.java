@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 @RestController
 public class OcrController {
@@ -21,14 +22,14 @@ public class OcrController {
     OcrUtility ocrUtility;
 
     @GetMapping("/default")
-    public String doFileOcr() throws TesseractException {
-        //File image = new File("src/main/resources/images/img1.jpg");
-        File image = new File("src/main/resources/images/pimg.pdf");
+    public String defaultOcr() throws TesseractException {
+        File image = new File("src/main/resources/images/img1.jpg");
+        //File image = new File("src/main/resources/images/pimg.pdf");
         return ocrUtility.tesseractOcr(image);
     }
 
     @PostMapping("/file")
-    public String doFileOcr(@RequestParam("file")MultipartFile file) throws TesseractException, IOException {
+    public String fileOcr(@RequestParam("file")MultipartFile file) throws TesseractException, IOException {
 
         System.out.println("request received");
         String fileName = file.getOriginalFilename();
@@ -41,6 +42,5 @@ public class OcrController {
         return ocrUtility.tesseractOcr(image);
         //return null;
     }
-
 
 }
